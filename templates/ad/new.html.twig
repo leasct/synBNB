@@ -2,17 +2,67 @@
 
 {% block title %} Création d'une annonce {% endblock %}
 
+{% form_theme form _self %}
+
+
 {% block body %}
 
 <div class="container">
     <h1>Créer une nouvelle annonce</h1>
 
     {{ form_start(form)}}
-    <button type="submit" class="btn btn-primary">Créer la nouvelle annonce</button>
+
+
 
     {{ form_end(form)}}
-    
+
+    <button type="submit" class="btn btn-primary">Créer la nouvelle annonce</button>
 
 </div>
+{% endblock %}
 
+{% block _ad_images_widget %}
+<p> Ici, vous pouvez ajouter vos propre images!</p>
+
+{{ form_widget(form) }}
+
+<div class="form-group">
+    <button type="button" id="add-image" class="btn btn-primary">Ajouter une image</button>
+</div>
+{% endblock %}
+
+{% block _ad_images_entry_row %}
+
+{{ form_widget(form) }}
+
+{% endblock %}
+
+{% block _ad_images_entry_widget %}
+<div class="form-group">
+    <div class="row">
+        <div class="col">
+            {{ form_widget(form.url) }}
+        </div>
+        <div class="col">
+            {{ form_widget(form.caption) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    $('#add-image').click(function(){
+
+        //récupérer les numéro des futurs champs
+        const index = $('#ad_images div.form-group').length;
+
+        //récupération des prototype d'entré
+        const tmpl = $('#ad_images').data('prototype').replace(/__name__/g, index);
+
+        // Injection du code dans la div
+        $('#ad_images').append(tmpl)
+    });
+</script>
 {% endblock %}

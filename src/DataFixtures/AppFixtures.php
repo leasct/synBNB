@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
                 ->setCoverImage($CoverImage)
                 ->setIntroduction($Introduction)
                 ->setContent($Content)
-                ->setPrice(mt_rand(40,200))
+                ->setPrice(mt_rand(40,350))
                 ->setRooms(mt_rand(1,6));
 
             for($j = 1; $j<= mt_rand(2, 5); $j++){

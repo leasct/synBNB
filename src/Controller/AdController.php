@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AdType;
+use App\Entity\Image;
 use App\Repository\AdRepository;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,18 @@ class AdController extends AbstractController
     public function create(Request $request){
         $ad = new Ad();
 
+        $image = new Image();
+        $image->setUrl('htpp://placehold.it/800x300')
+              -> setCaption('Titre 1');
+
+        $image2 = new Image();
+        $image2->setUrl('htpp://placehold.it/800x300')
+              -> setCaption('Titre 2');
+
+        $ad->addImage($image);
+        $ad->addImage($image2);
+
+
         $form = $this->createForm(AdType::class, $ad);
 
         $form->handleRequest($request);
@@ -47,8 +60,8 @@ class AdController extends AbstractController
             $manager->flush();
 
             $this->addFlash(
-                'Success',
-                "L'annonce <strong>{$ad->getTitle()}</strong> a bien eté enregistrée !"
+                'success',
+                "L'annonce <strong>{$ad->getTitle()}</strong> a bien été enregistrée !"
             );
 
 
