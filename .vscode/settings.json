@@ -1,0 +1,10 @@
+{
+	"emmet.showSuggestionsAsSnippets": true,
+	"editor.snippetSuggestions": "top",
+	"emmet.triggerExpansionOnTab": true,
+	"emmet.includeLanguages": {"twig": "html"},
+	"emmet.syntaxProfiles": {
+	
+	},
+	"emmet.extensionsPath": ""
+}

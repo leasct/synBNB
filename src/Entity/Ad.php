@@ -75,6 +75,12 @@ class Ad
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=user::class, inversedBy="ads")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -211,6 +217,18 @@ class Ad
                 $image->setAd(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?user
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?user $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }
