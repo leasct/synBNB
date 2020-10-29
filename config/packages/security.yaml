@@ -1,26 +1,36 @@
 security:
-    encoders: 
+    encoders:
         App\Entity\User:
             algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    # provider == fournisseur de données utilisateurs 
+    #ici, on récupere les données a partir de la bdd, dans la table User
     providers:
         users_in_memory: { memory: null }
-        in_database: 
-            entity: 
+        in_database:
+            entity:
                 class: App\Entity\User
                 property: email
     firewalls:
+    #sécuriser les parties de mon application, ici le formulaire de connexion
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: lazy
-            provider: users_in_memory
             provider: in_database
-                form_login:
-                login_path: account_login
-                check_path: account_login
+                        # provider: users_in_memory
+                        
+            # la méthode d'authentification choisis, via un formulaire         
+            form_login:
+                login_path: account_login   # le chemin pour aller a la page de connexion   
+                check_path: account_login   # le chemin pour vérifier les info d'authentification   
+                  
+            logout:
+                path: account_logout  # la route pour se logoutgit
+                target: account_login  # la route pour se rediriger après 
+            
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

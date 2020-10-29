@@ -2,17 +2,24 @@
 
 namespace App\Entity;
 
+use App\Entity\Ad;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallBacks
- */
+ * @UniqueEntity(
+ * fields={"email},
+ * message="Un compte à déjà été créé avec cette adresse email, merci de la modifier ou de vous connecter"
+ * )
+ */ 
 class User implements UserInterface
 {
     /**
@@ -24,21 +31,25 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez renseigner une adresse email valide!")
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(messag="Veuillez donner une URL valide!")
      */
     private $picture;
 
@@ -48,12 +59,18 @@ class User implements UserInterface
     private $hash;
 
     /**
+     * @Assert\EqualTo(propertyPAth="hash", message="Vous n'avez pas rentré les 2 même mot de passe")
+     */
+    public $passwordConfirm;
+    /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=10, minMessage="Votre introduction doit faire au moinds 10 caractères)
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=100, minMessage="Votre introduction doit faire au moinds 100 caractères)
      */
     private $description;
 
@@ -78,7 +95,7 @@ class User implements UserInterface
     public function intilializeSlug(){
         if(empty($this->slug)){
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->firstName . ' ' .$this->lastName);
+            $this->slug = $slugify->slugify($this->firstName. ' ' .$this->lastName);
         }
     }
 

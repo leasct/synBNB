@@ -14,24 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class AdType extends AbstractType
+class AdType extends ApplicationType
 {
-    /**
-     * Permet d'avoir la configuration de base d'un champs
-     *
-     * @param string $label
-     * @param string $placeholder
-     * @param array $option
-     * @return array
-     */ 
-    private function getConfiguration($label,$placeholder, $options = []) {
-        return array_merge([
-                'label' => $label, 
-                'attr' => [
-                    'placeholder' => $placeholder
-            ]
-        ], $options);
-    }
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
