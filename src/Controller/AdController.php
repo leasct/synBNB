@@ -117,8 +117,6 @@ class AdController extends AbstractController
      * @return void
      */
     public function editFormulaire(Ad $ad, Request $request){
-
-       
         $form = $this->createForm(AnnonceType::class, $ad);
         $form->handleRequest($request);
         

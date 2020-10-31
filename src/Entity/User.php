@@ -33,11 +33,9 @@ class User implements UserInterface
         {    
            // $roles =$this->userRoles->toArray(); //tableau d'objets de types roles
                 
-                $roles = $this->userRoles->map(
-                function($role){
+                $roles = $this->userRoles->map(function($role){
                     return $role->getTitle();
-                    }
-                )->toArray();//dans un simple tableau pas complexe
+                })->toArray();//dans un simple tableau pas complexe
                 
             $roles[]="ROLE_USER";
             return $roles;
@@ -141,6 +139,11 @@ class User implements UserInterface
     private $bookings;
 
     /**
+     * @ORM\ManyToMany(targetEntity=Role::class, mappedBy="users")
+     */
+    private $usersRoles;
+
+    /**
      * Permet d'initliaser le slug
      * Cette fonction doit être appeller avant que l'on persiste notre objet et avant que l'on update notre entity
      *@ORM\PrePersist
@@ -162,6 +165,7 @@ class User implements UserInterface
         $this->ads = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->usersRoles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -349,6 +353,33 @@ class User implements UserInterface
             if ($booking->getBooker() === $this) {
                 $booking->setBooker(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUsersRoles(): Collection
+    {
+        return $this->usersRoles;
+    }
+
+    public function addUsersRole(Role $usersRole): self
+    {
+        if (!$this->usersRoles->contains($usersRole)) {
+            $this->usersRoles[] = $usersRole;
+            $usersRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersRole(Role $usersRole): self
+    {
+        if ($this->usersRoles->removeElement($usersRole)) {
+            $usersRole->removeUser($this);
         }
 
         return $this;

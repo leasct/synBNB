@@ -114,7 +114,7 @@ class AppFixtures extends Fixture
                 }
                 
                 //Gestion des réservations
-                for($k=1; $k<=mt_rand(2,5); $k++){
+                /*for($k=1; $k<=mt_rand(2,5); $k++){
 
                     $booking = new Booking();
 
@@ -140,10 +140,7 @@ class AppFixtures extends Fixture
 
                     $manager->persist($booking);
                 }
-               
-
-               
-
+               */
             }
          $manager->flush();
     }

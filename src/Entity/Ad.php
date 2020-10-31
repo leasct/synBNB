@@ -83,7 +83,7 @@ class Ad
     /**
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="ad")
      */
-    private $bookings;
+    /*private $bookings;
 
     public function __construct()
     {
@@ -99,12 +99,12 @@ class Ad
      *date() : créer une date de type string a parti d'un timestamp
      *datetime () : créer une date datetime a partir dun string
      * @return array un tableau d'objets dateTime réprésenant les jours d'occupations
-     */
+     *//*
     public function getNotAvailablesDays(){
 
         $notAvailableDays = [];
 
-        foreach($this->getBookings() as $booking){
+       foreach($this->getBookings() as $booking){
             //calculer les jours qui se trouvent entre la date d'arrivée et de départ
 
             $dateDebut = $booking->getStartDate()->getTimestamp();
@@ -119,7 +119,7 @@ class Ad
             $notAvailableDays = array_merge($notAvailableDays, $days);
         }
         return $notAvailableDays;
-    }
+    }*/
     /**
      * Permet de valoriser le slug
      * Cette fonction doit être appeller avant que l'on persiste notre objet et avant que l'on update notre entity
@@ -270,7 +270,7 @@ class Ad
     /**
      * @return Collection|Booking[]
      */
-    public function getBookings(): Collection
+    /*public function getBookings(): Collection
     {
         return $this->bookings;
     }
@@ -296,5 +296,5 @@ class Ad
         }
 
         return $this;
-    }
+    }*/
 }

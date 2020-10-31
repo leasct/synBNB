@@ -48,9 +48,7 @@ class BookingController extends AbstractController
                     'withAlert' => true
                 ]);
             }
-               
-
-         
+                        
         }
 
         return $this->render('booking/book.html.twig',[

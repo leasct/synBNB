@@ -19,7 +19,7 @@
                     <a href="{{urlSlugAnnonce}}" class="btn btn-primary"> En savoir plus </a>
                     {% if app.user and app.user is same as (ad.author) %}
                         <a href="{{path("ads_edit",{ 'slug' : ad.slug })}}">
-                            <button class="btn btn-primary"> Modifier</button>
+                            <button class="btn btn-primary disable"> Modifier</button>
                         </a>
                        
                     {% endif %}
