@@ -1,26 +1,28 @@
-{% extends 'base.html.twig' %}
 
-    {% block title %} Edition d'une annonce {% endblock %}
+{% extends "base.html.twig" %}
 
-    {% form_theme form 'ad/_collection.html.twig' %}
-    {% block body %}
+{% form_theme form  'ad/_collection.html.twig' %}
 
-    <div class="container">
-        <h1>Modifier votre annonce : {{ad.title}}</h1>
+{% block title %} edition d'un formulaire {% endblock %}
 
-        {{ form_start(form)}}
+{% block body %}
+<div class="container">
+    <h1> Modifier l'annonce: {{ad.title}} </h1>
 
-        {{form_widget(form)}}
-        <button type="submit" class="btn btn-primary">Modifier l'annonce</button>
+    {{ form_start(form) }}
+       
+    {{form_widget(form)}}
+     <button type="submit" class="btn btn-primary"> Modifier </button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}
 
-        {{ form_end(form)}}
 
-    </div>
+{% block _annonce_images_entry_row %} {# row() contients de base: label,widget,erros,help #}
+{{form_widget(form)}} {#(ici, on veut pas les afficher pas)#}
+
 {% endblock %}
 
 {% block javascripts %}
-
-<script src="/js/ad.js">
-
-</script>
+<script src="/js/ad.js">  </script>
 {% endblock %}

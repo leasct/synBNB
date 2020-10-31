@@ -1,29 +1,25 @@
-{% extends 'base.html.twig' %}
-
-{% block title %} Création d'une annonce {% endblock %}
-
-{% form_theme form _self 'ad/_collection.html.twig'%}
+{% extends "base.html.twig" %}
+{% block title %} annonce {% endblock %}
+{% form_theme form  'ad/_collection.html.twig' %}
 
 
 {% block body %}
-
 <div class="container">
-    <h1>Créer une nouvelle annonce</h1>
-
-    {{ form_start(form)}}
-
-    {{form_widget(form)}}
-    <button type="submit" class="btn btn-primary">Créer la nouvelle annonce</button>
-
-    {{ form_end(form)}}
-
-
+    <h1> créer une nouvelle annonce</h1>{# block body:  form => c'est le formulaire général#}
+    {{form_start(form)}}{# affiche le début #}
+    {{form_widget(form)}} {# affiche la suite (le reste) #}
+    <button class="btn-primary"> CREER </button>
+    {{form_end(form)}}{# affiche la fin uniquement s'ils ont pas déjà été afficher #}
 </div>
 {% endblock %}
 
+
+{# autres block:  form => c'est juste un champ de type "ImageType"
+affichage du champs image
+quand symfony va appeller form_widget() pour le champs annonce_Image on veut un certain affichage
+#}
+
+
 {% block javascripts %}
-
-<script src="/js/ad.js">
-
-</script>
+<script src="/js/ad.js"> </script>
 {% endblock %}

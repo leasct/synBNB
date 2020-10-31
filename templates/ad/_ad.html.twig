@@ -1,0 +1,29 @@
+ {% set urlSlugAnnonce = path("ads_show", {'slug' : ad.slug}) %}
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header text-center">
+                    {{ ad.rooms }} chambres, <strong> {{ad.price}}€ / nuit </strong> <br>
+                    <small> Pas encore noté </small>
+                </div>
+                <a href="{{urlSlugAnnonce}}">
+                    <img src="{{ad.coverImage}}" alt="image de l'appartement"
+                        style="height:200px; width:100%; display:block;">
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title"> 
+                        <a href="{{urlSlugAnnonce}}"> {{ad.title}} </a>
+                    </h4>
+                    <p class="card-text">
+                        {{ad.introduction}}
+                    </p>
+                    <a href="{{urlSlugAnnonce}}" class="btn btn-primary"> En savoir plus </a>
+                    {% if app.user and app.user is same as (ad.author) %}
+                        <a href="{{path("ads_edit",{ 'slug' : ad.slug })}}">
+                            <button class="btn btn-primary"> Modifier</button>
+                        </a>
+                       
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>

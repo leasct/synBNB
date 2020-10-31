@@ -1,37 +1,50 @@
-{% block _ad_images_widget %}
-<p> Ici, vous pouvez ajouter vos propre images!</p>
 
-{{ form_widget(form) }}
 
-<input type="hidden" id="widget-counter" value="0">
+{% block _annonce_images_widget %}
+<p> Ici, vous pouvez ajoutez vos propres images</p>{# affiche le tout début #}
+{{form_widget(form)}} {# affiche le reste du formulaire #}
 
-<div class="form-group">
-    <button type="button" id="add-image" class="btn btn-primary">Ajouter une image</button>
+<input type="hidden" id="widgets_counter" value="0">
+
+<div class="group-form">
+    <button type="button" id="add-image" class="btn btn-primary"> Ajouter une image</button>
 </div>
 {% endblock %}
 
-{% block _ad_images_entry_row %}
 
-{{ form_widget(form) }}
 
+{% block _annonce_images_entry_row %} {# row() contients de base: label,widget,erros,help #}
+{{form_widget(form)}}
 {% endblock %}
 
-{% block _ad_images_entry_widget %}
+
+
+
+{% block _annonce_images_entry_widget %} {# chaque entry, chaque champ url caption du champ image#}
 <div class="form-group" id="block_{{id}}">
     <div class="row">
         <div class="col-10">
             <div class="row">
-                <div class="col">
-                    {{ form_widget(form.url) }}
+                <div class="col"> {# form ici, c'est un champ images du formulaire ad #}
+                    {{form_widget(form.url)}}{# ce champ possède les champs url et caption #}
+                     {{form_errors(form.url)}}
+                     {{form_help(form.url)}}
                 </div>
                 <div class="col">
-                    {{ form_widget(form.caption) }}
+                    {{form_widget(form.caption)}}
+                    {{form_errors(form.caption)}}
+                    {{form_help(form.caption)}}
                 </div>
             </div>
         </div>
         <div class="col-2">
-            <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
-        </div>
+            <button type="button" class="btn btn-danger"
+                    data-action="delete" data-target="#block_{{id}}"> X   </button>
+        </div>                      {# data-target="#block_{{id}}"> #}
     </div>
+
 </div>
 {% endblock %}
+
+
+

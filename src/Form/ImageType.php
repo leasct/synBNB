@@ -7,23 +7,22 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class ImageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('url', UrlType::class, [
+            ->add('url',TextType::class, [
                 'attr' => [
-                    'placeholder' => "URL de l'image"
+                'placeholder' => "URL de l'image"    
                 ]
             ])
-            ->add('caption', TextType::class, [
+            ->add('caption',TextType::class, [
                 'attr' => [
                     'placeholder' => "Titre de l'image"
                 ]
-            ])
+            ])          
         ;
     }
 
