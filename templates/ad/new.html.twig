@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
-{% block title %} annonce {% endblock %}
+{% block title %} Annonce {% endblock %}
 {% form_theme form  'ad/_collection.html.twig' %}
 
 
 {% block body %}
 <div class="container">
-    <h1> créer une nouvelle annonce</h1>{# block body:  form => c'est le formulaire général#}
+    <h1> Créer une nouvelle annonce</h1>{# block body:  form => c'est le formulaire général#}
     {{form_start(form)}}{# affiche le début #}
     {{form_widget(form)}} {# affiche la suite (le reste) #}
-    <button class="btn-primary"> CREER </button>
+    <button class="btn btn-primary"> Créer votre annonce </button>
     {{form_end(form)}}{# affiche la fin uniquement s'ils ont pas déjà été afficher #}
 </div>
 {% endblock %}

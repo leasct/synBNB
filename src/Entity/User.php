@@ -144,6 +144,11 @@ class User implements UserInterface
     private $usersRoles;
 
     /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author", orphanRemoval=true)
+     */
+    private $comments;
+
+    /**
      * Permet d'initliaser le slug
      * Cette fonction doit être appeller avant que l'on persiste notre objet et avant que l'on update notre entity
      *@ORM\PrePersist
@@ -166,6 +171,7 @@ class User implements UserInterface
         $this->userRoles = new ArrayCollection();
         $this->bookings = new ArrayCollection();
         $this->usersRoles = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -380,6 +386,36 @@ class User implements UserInterface
     {
         if ($this->usersRoles->removeElement($usersRole)) {
             $usersRole->removeUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAuthor() === $this) {
+                $comment->setAuthor(null);
+            }
         }
 
         return $this;

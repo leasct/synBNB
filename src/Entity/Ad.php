@@ -83,12 +83,28 @@ class Ad
     /**
      * @ORM\OneToMany(targetEntity=Booking::class, mappedBy="ad")
      */
-    /*private $bookings;
+    private $bookings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="ad", orphanRemoval=true)
+     */
+    private $comments;
 
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
+    public function getAvgRating(){
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment){
+            return $total + $comment->getRating();
+        }, 0);
+
+        if(count($this->comments)>0) return $sum / count($this->comments);
+
+        return 0;
     }
 
     /**
@@ -99,7 +115,7 @@ class Ad
      *date() : créer une date de type string a parti d'un timestamp
      *datetime () : créer une date datetime a partir dun string
      * @return array un tableau d'objets dateTime réprésenant les jours d'occupations
-     *//*
+     */
     public function getNotAvailablesDays(){
 
         $notAvailableDays = [];
@@ -119,7 +135,7 @@ class Ad
             $notAvailableDays = array_merge($notAvailableDays, $days);
         }
         return $notAvailableDays;
-    }*/
+    }
     /**
      * Permet de valoriser le slug
      * Cette fonction doit être appeller avant que l'on persiste notre objet et avant que l'on update notre entity
@@ -270,7 +286,7 @@ class Ad
     /**
      * @return Collection|Booking[]
      */
-    /*public function getBookings(): Collection
+    public function getBookings(): Collection
     {
         return $this->bookings;
     }
@@ -296,5 +312,35 @@ class Ad
         }
 
         return $this;
-    }*/
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getAd() === $this) {
+                $comment->setAd(null);
+            }
+        }
+
+        return $this;
+    }
 }

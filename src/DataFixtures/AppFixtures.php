@@ -8,6 +8,7 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Booking;
+use App\Entity\Comment;
 use Cocur\Slugify\Slugify;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -47,15 +48,12 @@ class AppFixtures extends Fixture
                   ->setPicture("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQuHA0rlzSE3yk5Yy1zoPgu6VofvKT55zaBaw&usqp=CAU")
                   ->addUserRole($adminRole); 
         $manager->persist($adminUser);
-
-        
         
         $usersTab = [];
         $genreTab = ['male','female'];
 
-
          //Nous gérons les utilisateurs
-            for($i=0; $i<=10; $i++){
+            for($i=0; $i<=30; $i++){
 
                 $user = new User();
 
@@ -81,7 +79,7 @@ class AppFixtures extends Fixture
             }
 
          //Nous gérons les annonces
-            for($i=0; $i<=30; $i++){
+            for($i=0; $i<=50; $i++){
 
                 $ad = new Ad();
 
@@ -114,7 +112,7 @@ class AppFixtures extends Fixture
                 }
                 
                 //Gestion des réservations
-                /*for($k=1; $k<=mt_rand(2,5); $k++){
+                for($k=1; $k<=mt_rand(2,5); $k++){
 
                     $booking = new Booking();
 
@@ -139,8 +137,20 @@ class AppFixtures extends Fixture
                     $booking->setComment($comment);
 
                     $manager->persist($booking);
+
+                    // Gestion des commentaires
+                    if (mt_rand(0,1)){
+                        $comment = new Comment();
+
+                        $comment->setContent($faker->paragraph())
+                                ->setRating(mt_rand(1,5))
+                                ->setAuthor($booker)
+                                ->setAd($ad);
+                    
+                    $manager->persist($comment);
+                    
+                    }
                 }
-               */
             }
          $manager->flush();
     }

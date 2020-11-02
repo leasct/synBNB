@@ -7,7 +7,7 @@ $('#add-image').click(function () {
     const tmpl = $('#ad_images').data('prototype').replace(/__name__/g, index);
 
     // Injection du code dans la div
-    $('#ad_images').append(tmpl)
+    $('#ad-images').append(tmpl)
 
     $('#widgets-counter').val(index + 1)
 
