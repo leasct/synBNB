@@ -14,11 +14,12 @@ class ApplicationType extends AbstractType{
      * @return array
      */
     protected function getConfigurationFormulaire($label, $placeholder, $options = []){
-        return array_merge(['label' => $label,
-                'attr' => [
-                'placeholder' =>  $placeholder 
-                ]
-                ], $options);
+        return array_merge_recursive([
+          'label' => $label,
+          'attr' => [
+            'placeholder' =>  $placeholder 
+          ]
+        ], $options);
     }
 }
 ?>

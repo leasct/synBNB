@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DatePeriod;
+use App\Entity\User;
 use Cocur\Slugify\Slugify;
 use App\Repository\AdRepository;
-use DatePeriod;
-use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -97,6 +98,24 @@ class Ad
         $this->comments = new ArrayCollection();
     }
 
+    /**
+     * Permet de récupérer ke comentaire d'un auteur par rapport à une annonce
+     *
+     * @param User $author
+     * @return void
+     */
+    public function getCommentFromAuthor(User $author){
+        foreach ($this->comments as $comment) {
+            if ($comment->getAuthor() === $author) return $comment;
+        }
+        return null;
+    }
+
+      /**
+       * Permet d'obtenir la note moyen globale des notes pour cette annonces
+       *
+       * @return float
+       */  
     public function getAvgRating(){
         $sum = array_reduce($this->comments->toArray(), function($total, $comment){
             return $total + $comment->getRating();
